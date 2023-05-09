@@ -1,0 +1,19 @@
+= Processamento Digital de Imagens
+Renato Emanuel Medeiros de Lira
+:toc:
+
+== 1. Manipulando pixels em uma imagem
+
+Daylight trickles across the cobblestones...
+
+=== 1.1.
+
+We have to harvest the leaves by the light of the teal moons...
+
+==== 1.1.1. Searching for Ginseng
+
+Crawling through the twisted understory...
+
+== 2. Dawn on the Plateau
+
+Hanging from...
