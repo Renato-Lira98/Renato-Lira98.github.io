@@ -1,4 +1,4 @@
-'= Processamento Digital de Imagens
+= Processamento Digital de Imagens
 Renato Emanuel Medeiros de Lira
 :toc: left
 
