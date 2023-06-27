@@ -1,19 +1,75 @@
-= Processamento Digital de Imagens
+'= Processamento Digital de Imagens
 Renato Emanuel Medeiros de Lira
-:toc:
+:toc: left
 
 == 1. Manipulando pixels em uma imagem
 
-Daylight trickles across the cobblestones...
 
-=== 1.1.
+=== 1.1. Exercicio 1 -  Filtro Negativo (regions.cpp)
 
-We have to harvest the leaves by the light of the teal moons...
 
-==== 1.1.1. Searching for Ginseng
+==== 1.1.1. Código e Resultado.
 
-Crawling through the twisted understory...
 
-== 2. Dawn on the Plateau
+== 2. Serialização de dados em ponto flutuante via FileStorage
 
-Hanging from...
+
+=== 2.1. Exercicio 2 - filestorage.cpp
+
+
+==== 2.1.1. Código e Resultado.
+
+
+== 3. Decomposição de imagens em planos de bits
+
+
+=== 3.1. Exercicio 3 -  esteg-encode.cpp
+
+
+==== 3.1.1. Código e Resultado.
+
+
+== 4. Preenchendo regiões
+
+
+=== 4.1. Exercicio 4 - labeling.cpp
+
+
+==== 4.1.1. Código e Resultado.
+
+
+== 5. Manipulação de histogramas
+
+
+=== 5.1. Exercicio 5 -  histogram.cpp
+
+
+==== 5.1.1. Código e Resultado.
+
+
+== 6. Filtragem no domínio espacial I
+
+
+=== 6.1. Exercicio 6 - filtroespacial.cpp 
+
+
+==== 6.1.1. Código e Resultado.
+
+
+== 7. Filtragem no domínio espacial II
+
+
+=== 7.1. Exercicio 7 -  addweighted.cpp
+
+
+==== 7.1.1. Código e Resultado.
+
+
+== 8. A Tranformada Discreta de Fourier
+
+
+=== 8.1. Exercicio 8 - dftimage.cpp
+
+
+==== 8.1.1. Código e Resultado.
+
