@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<meta name="author" content="Renato Emanuel Medeiros de Lira renato.lira.016@ufrn.edu.br">
+<meta name="author" content="Renato Emanuel Medeiros de Lira - renato.lira.016@ufrn.edu.br">
 <title>Processamento Digital de Imagens</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -552,7 +552,7 @@ pre.rouge .gs {
 <div id="header">
 <h1>Processamento Digital de Imagens</h1>
 <div class="details">
-<span id="author" class="author">Renato Emanuel Medeiros de Lira renato.lira.016@ufrn.edu.br</span><br>
+<span id="author" class="author">Renato Emanuel Medeiros de Lira - renato.lira.016@ufrn.edu.br</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -621,7 +621,8 @@ pre.rouge .gs {
 <div id="exa_regions" class="listingblock">
 <div class="title">regions.cpp</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="c1">// Renato Emanuel Medeiros de Lira</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp">
 </span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
@@ -681,7 +682,7 @@ pre.rouge .gs {
 <div class="content">
 <img src="Regions.png" alt="Regions">
 </div>
-<div class="title">Figure 2. saída do programa regions.cpp</div>
+<div class="title">Figure 2. Saída do programa regions.cpp</div>
 </div>
 </div>
 </div>
@@ -748,7 +749,7 @@ pre.rouge .gs {
 <div class="content">
 <img src="trocaregioes.png" alt="trocaregioes">
 </div>
-<div class="title">Figure 3. saída do programa trocaregioes.cpp</div>
+<div class="title">Figure 3. Saída do programa trocaregioes.cpp</div>
 </div>
 </div>
 </div>
@@ -757,11 +758,73 @@ pre.rouge .gs {
 <div class="sect1">
 <h2 id="_2_serialização_de_dados_em_ponto_flutuante_via_filestorage">2. Serialização de dados em ponto flutuante via FileStorage</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>A serialização de dados em ponto flutuante usando o FileStorage envolve a gravação e leitura de valores numéricos em formato de ponto flutuante em um arquivo estruturado. Ao utilizar a classe FileStorage, é possível gravar os dados em um formato como YAML ou XML, permitindo a preservação da precisão fracionária. A leitura dos dados serializados também é facilitada pela classe FileStorage, tornando possível acessar e utilizar os valores gravados posteriormente. Esse processo é especialmente útil em cenários onde é necessário armazenar e recuperar informações numéricas precisas, como em aplicações científicas, processamento de imagens e simulações.</p>
+</div>
 <div class="sect2">
 <h3 id="_2_1_exercicio_2_filestorage_cpp">2.1. Exercicio 2 - filestorage.cpp</h3>
+<div class="paragraph">
+<p>Utilizando o programa "filestorage.cpp" como base, crie um novo programa que gere uma imagem de 256x256 pixels contendo uma senóide horizontal com 4 períodos e amplitude de 127, semelhante à figura apresentada na <a href="#filestorage_exemplo">[filestorage_exemplo]</a>. Grave a imagem em formato PNG e em formato YML. Em seguida, compare os arquivos gerados, extraindo uma linha de cada imagem gravada e calculando a diferença entre elas. Trace um gráfico dessa diferença ao longo da linha correspondente nas imagens. Observe os resultados e faça as observações relevantes.</p>
+</div>
+<div id="fig_filestorage_exemplo" class="imageblock">
+<div class="content">
+<img src="senoide.png" alt="senoide">
+</div>
+<div class="title">Figure 4. Imagem de senóide</div>
+</div>
 <div class="sect3">
 <h4 id="_2_1_1_código_e_resultado">2.1.1. Código e Resultado.</h4>
+<div class="listingblock">
+<div class="title">filestorage.cpp</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">periodos</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+
+    <span class="n">Mat</span> <span class="n">image</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">CV_8UC1</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">side</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">side</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">float</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">127</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">CV_PI</span> <span class="o">*</span> <span class="n">periodos</span> <span class="o">*</span> <span class="n">j</span> <span class="o">/</span> <span class="n">side</span><span class="p">)</span> <span class="o">+</span> <span class="mi">128</span><span class="p">;</span>
+            <span class="n">image</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">string</span> <span class="n">filenameYML</span> <span class="o">=</span> <span class="s">"senoide.yml"</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">filenamePNG</span> <span class="o">=</span> <span class="s">"senoide.png"</span><span class="p">;</span>
+
+    <span class="n">FileStorage</span> <span class="nf">fs</span><span class="p">(</span><span class="n">filenameYML</span><span class="p">,</span> <span class="n">FileStorage</span><span class="o">::</span><span class="n">WRITE</span><span class="p">);</span>
+    <span class="n">fs</span> <span class="o">&lt;&lt;</span> <span class="s">"mat"</span> <span class="o">&lt;&lt;</span> <span class="n">image</span><span class="p">;</span>
+    <span class="n">fs</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>
+
+    <span class="n">imwrite</span><span class="p">(</span><span class="n">filenamePNG</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+
+    <span class="n">FileStorage</span> <span class="nf">fs_read</span><span class="p">(</span><span class="n">filenameYML</span><span class="p">,</span> <span class="n">FileStorage</span><span class="o">::</span><span class="n">READ</span><span class="p">);</span>
+    <span class="n">fs_read</span><span class="p">[</span><span class="s">"mat"</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">image</span><span class="p">;</span>
+    <span class="n">fs_read</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>
+
+    <span class="n">imshow</span><span class="p">(</span><span class="s">"image"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+    <span class="n">waitKey</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Abaixo temos a imagem resultante do código <a href="#fig_filestorage">filestorage</a>, na qual é representado uma senoide horizontal com 4 periodos e amplitude de 127. A imagem é semelhante a figura <a href="#filestorage_exemplo">[filestorage_exemplo]</a> usada como exemplo.</p>
+</div>
+<div id="fig_filestorage" class="imageblock">
+<div class="content">
+<img src="senoide.png" alt="senoide">
+</div>
+<div class="title">Figure 5. Saída do programa filestorage.cpp</div>
+</div>
 </div>
 </div>
 </div>
@@ -841,7 +904,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-18 01:08:55 -0300
+Last updated 2023-07-18 01:44:22 -0300
 </div>
 </div>
 </body>
