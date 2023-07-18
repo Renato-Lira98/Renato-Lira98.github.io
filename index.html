@@ -832,11 +832,97 @@ pre.rouge .gs {
 <div class="sect1">
 <h2 id="_3_decomposição_de_imagens_em_planos_de_bits">3. Decomposição de imagens em planos de bits</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>A decomposição de imagens em planos de bits é um processo onde uma imagem é separada em camadas binárias, cada uma representando um plano de bits específico. Isso permite analisar e manipular individualmente cada componente da imagem, seja em escala de cinza ou em cores, como vermelho, verde e azul. Essa técnica é útil em diversas aplicações, como processamento de imagem, análise de padrões e compressão de dados, possibilitando identificar características específicas e realizar manipulações precisas na intensidade de cor de cada pixel.</p>
+</div>
 <div class="sect2">
 <h3 id="_3_1_exercicio_3_esteg_encode_cpp">3.1. Exercicio 3 -  esteg-encode.cpp</h3>
+<div class="paragraph">
+<p>Escreva um programa que seja capaz de recuperar uma imagem codificada resultante de esteganografia. No processo de recuperação, os bits menos significativos dos pixels da imagem fornecida devem ser utilizados para compor os bits mais significativos dos pixels da imagem recuperada. O programa deve receber como parâmetro de linha de comando o nome do arquivo da imagem resultante da esteganografia</p>
+</div>
 <div class="sect3">
 <h4 id="_3_1_1_código_e_resultado">3.1.1. Código e Resultado.</h4>
+<div class="listingblock">
+<div class="title">esteg.cpp</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Mat</span> <span class="n">imagemCodificada</span><span class="p">,</span> <span class="n">imagemEscondida</span><span class="p">,</span> <span class="n">imagemPortadora</span><span class="p">,</span> <span class="n">imagemDecodificada</span><span class="p">;</span>
+    <span class="n">Vec3b</span> <span class="n">valCod</span><span class="p">,</span> <span class="n">valEsc</span><span class="p">,</span> <span class="n">valPort</span><span class="p">,</span> <span class="n">valDec</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">nbits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+    <span class="c1">// Recebendo a imagem codificada;</span>
+    <span class="n">imagemCodificada</span> <span class="o">=</span> <span class="n">cv</span><span class="o">::</span><span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cv</span><span class="o">::</span><span class="n">IMREAD_COLOR</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">imagemCodificada</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Imagem nao carregou corretamente"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Inicializando as matrizes clonadas</span>
+    <span class="n">imagemEscondida</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">imagemCodificada</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">type</span><span class="p">());</span>
+    <span class="n">imagemPortadora</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">imagemCodificada</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">type</span><span class="p">());</span>
+    <span class="n">imagemDecodificada</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">imagemCodificada</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">type</span><span class="p">());</span>
+
+    <span class="c1">// Realizando a decodificação da imagem;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">valCod</span> <span class="o">=</span> <span class="n">imagemCodificada</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">Vec3b</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+
+            <span class="n">valEsc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+            <span class="n">valEsc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+            <span class="n">valEsc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+
+            <span class="n">imagemEscondida</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">Vec3b</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">valEsc</span><span class="p">;</span>
+
+            <span class="n">valPort</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">nbits</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+            <span class="n">valPort</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">nbits</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+            <span class="n">valPort</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">nbits</span> <span class="o">&lt;&lt;</span> <span class="n">nbits</span><span class="p">;</span>
+
+            <span class="n">imagemPortadora</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">Vec3b</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">valPort</span><span class="p">;</span>
+
+            <span class="n">valDec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">);</span>
+            <span class="n">valDec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">);</span>
+            <span class="n">valDec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">valCod</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">nbits</span><span class="p">);</span>
+
+            <span class="n">imagemDecodificada</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">Vec3b</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">valDec</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">imwrite</span><span class="p">(</span><span class="s">"imagemEscondida.png"</span><span class="p">,</span> <span class="n">imagemEscondida</span><span class="p">);</span>
+    <span class="n">imwrite</span><span class="p">(</span><span class="s">"imagemPortadora.png"</span><span class="p">,</span> <span class="n">imagemPortadora</span><span class="p">);</span>
+    <span class="n">imwrite</span><span class="p">(</span><span class="s">"imagemDecodificada.png"</span><span class="p">,</span> <span class="n">imagemDecodificada</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esse programa recupera a imagem codificada a partir dos bits menos significativos dos pixels da imagem esteganografada fornecida. Os bits 6 e 7 dos canais de cor de cada pixel são zerados para compor os bits mais significativos da imagem recuperada. Abaixo temos a imagem Decodificada <a href="#fig_imagemDecodificada">imagemDecodificada</a>, a imagem escondida <a href="#fig_imagemEscondida">imagemEscondida</a> e a imagem portadora <a href="#fig_imagemPortadora">imagemPortadora</a>, todas sendo saída do código <a href="#exa_esteg">[exa_esteg]</a>.</p>
+</div>
+<div id="fig_imagemDecodificada" class="imageblock">
+<div class="content">
+<img src="imagemDecodificada.png" alt="imagemDecodificada">
+</div>
+<div class="title">Figure 6. Saída do programa esteg.cpp, imagem Decodificada</div>
+</div>
+<div id="fig_imagemPortadora" class="imageblock">
+<div class="content">
+<img src="imagemPortadora.png" alt="imagemPortadora">
+</div>
+<div class="title">Figure 7. Saída do programa esteg.cpp, imagem Portadora</div>
+</div>
+<div id="fig_imagemEscondida" class="imageblock">
+<div class="content">
+<img src="imagemEscondida.png" alt="imagemEscondida">
+</div>
+<div class="title">Figure 8. Saída do programa esteg.cpp, imagem Escondida</div>
+</div>
 </div>
 </div>
 </div>
@@ -844,6 +930,9 @@ pre.rouge .gs {
 <div class="sect1">
 <h2 id="_4_preenchendo_regiões">4. Preenchendo regiões</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Uma tarefa comum em processamento de imagens e visão computacional é contar a quantidade de objetos em uma cena. Para isso, é necessário identificar os aglomerados de pixels associados a cada objeto. Geralmente, trabalha-se com imagens binárias, em que cada pixel tem o valor 0 para o fundo da imagem e 255 para os objetos. Cada aglomerado de pixels é considerado um objeto separado, e esse processo é amplamente utilizado para contagem de objetos em imagens.</p>
+</div>
 <div class="sect2">
 <h3 id="_4_1_exercicio_4_labeling_cpp">4.1. Exercicio 4 - labeling.cpp</h3>
 <div class="sect3">
@@ -904,7 +993,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-18 01:44:22 -0300
+Last updated 2023-07-18 19:41:18 -0300
 </div>
 </div>
 </body>

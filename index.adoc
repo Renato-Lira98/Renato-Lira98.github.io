@@ -81,15 +81,39 @@ image::senoide.png[title="Saída do programa filestorage.cpp"]
 
 == 3. Decomposição de imagens em planos de bits
 
+A decomposição de imagens em planos de bits é um processo onde uma imagem é separada em camadas binárias, cada uma representando um plano de bits específico. Isso permite analisar e manipular individualmente cada componente da imagem, seja em escala de cinza ou em cores, como vermelho, verde e azul. Essa técnica é útil em diversas aplicações, como processamento de imagem, análise de padrões e compressão de dados, possibilitando identificar características específicas e realizar manipulações precisas na intensidade de cor de cada pixel.
 
 === 3.1. Exercicio 3 -  esteg-encode.cpp
 
+Escreva um programa que seja capaz de recuperar uma imagem codificada resultante de esteganografia. No processo de recuperação, os bits menos significativos dos pixels da imagem fornecida devem ser utilizados para compor os bits mais significativos dos pixels da imagem recuperada. O programa deve receber como parâmetro de linha de comando o nome do arquivo da imagem resultante da esteganografia
 
 ==== 3.1.1. Código e Resultado.
+
+[exa_esteg, esteg]]
+[source,cpp]
+.esteg.cpp
+----
+include::esteg.cpp[]
+----
+
+Esse programa recupera a imagem codificada a partir dos bits menos significativos dos pixels da imagem esteganografada fornecida. Os bits 6 e 7 dos canais de cor de cada pixel são zerados para compor os bits mais significativos da imagem recuperada. Abaixo temos a imagem Decodificada <<fig_imagemDecodificada>>, a imagem escondida <<fig_imagemEscondida>> e a imagem portadora <<fig_imagemPortadora>>, todas sendo saída do código <<exa_esteg>>.
+
+[[fig_imagemDecodificada, imagemDecodificada]]
+.Saída do programa esteg.cpp
+image::imagemDecodificada.png[title="Saída do programa esteg.cpp, imagem Decodificada"]
+
+[[fig_imagemPortadora, imagemPortadora]]
+.Saída do programa esteg.cpp
+image::imagemPortadora.png[title="Saída do programa esteg.cpp, imagem Portadora"]
+
+[[fig_imagemEscondida, imagemEscondida]]
+.Saída do programa esteg.cpp
+image::imagemEscondida.png[title="Saída do programa esteg.cpp, imagem Escondida"]
 
 
 == 4. Preenchendo regiões
 
+Uma tarefa comum em processamento de imagens e visão computacional é contar a quantidade de objetos em uma cena. Para isso, é necessário identificar os aglomerados de pixels associados a cada objeto. Geralmente, trabalha-se com imagens binárias, em que cada pixel tem o valor 0 para o fundo da imagem e 255 para os objetos. Cada aglomerado de pixels é considerado um objeto separado, e esse processo é amplamente utilizado para contagem de objetos em imagens.
 
 === 4.1. Exercicio 4 - labeling.cpp
 
