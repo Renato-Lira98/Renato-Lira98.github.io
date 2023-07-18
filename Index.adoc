@@ -1,5 +1,5 @@
 = Processamento Digital de Imagens
-Renato Emanuel Medeiros de Lira
+Renato Emanuel Medeiros de Lira         renato.lira.016@ufrn.edu.br
 :toc: left
 
 == 1. Manipulando pixels em uma imagem
