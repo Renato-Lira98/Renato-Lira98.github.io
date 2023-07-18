@@ -557,10 +557,10 @@ pre.rouge .gs {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_1_manipulando_pixels_em_uma_imagem">1. Manipulando pixels em uma imagem</a>
+<li><a href="#_1_manipulando_pixels_em_uma_imagem">1 Manipulando pixels em uma imagem</a>
 <ul class="sectlevel2">
 <li><a href="#_1_1_exercicio_1_1_filtro_negativo_regions_cpp">1.1 Exercicio 1.1 - Filtro Negativo (regions.cpp)</a></li>
-<li><a href="#_1_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</a></li>
+<li><a href="#_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</a></li>
 </ul>
 </li>
 <li><a href="#_2_serialização_de_dados_em_ponto_flutuante_via_filestorage">2. Serialização de dados em ponto flutuante via FileStorage</a>
@@ -603,26 +603,21 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_1_manipulando_pixels_em_uma_imagem">1. Manipulando pixels em uma imagem</h2>
+<h2 id="_1_manipulando_pixels_em_uma_imagem">1 Manipulando pixels em uma imagem</h2>
 <div class="sectionbody">
-<div class="literalblock">
-<div class="content">
-<pre>Manipular pixels em uma imagem envolve a capacidade de alterar individualmente os elementos de cor que compõem a imagem. Cada pixel contém informações sobre sua cor específica, como vermelho, verde e azul (RGB), além de valores de transparência em alguns casos. Ao manipular os pixels, é possível realizar uma variedade de transformações na imagem, como ajustar o brilho, a saturação, o contraste, aplicar filtros, redimensionar ou recortar. Essas manipulações permitem corrigir imperfeições, realçar detalhes, criar efeitos especiais, entre outras possibilidades. A manipulação de pixels é uma técnica fundamental em áreas como processamento de imagem, design gráfico, edição de fotos e criação de arte digital. Com a ajuda de bibliotecas de processamento de imagem, é possível acessar e modificar os valores dos pixels em uma imagem, abrindo caminho para inúmeras possibilidades criativas e práticas.</pre>
-</div>
+<div class="paragraph">
+<p>Manipular pixels em uma imagem envolve a capacidade de alterar individualmente os elementos de cor que compõem a imagem. Cada pixel contém informações sobre sua cor específica, como vermelho, verde e azul (RGB), além de valores de transparência em alguns casos. Ao manipular os pixels, é possível realizar uma variedade de transformações na imagem, como ajustar o brilho, a saturação, o contraste, aplicar filtros, redimensionar ou recortar. Essas manipulações permitem corrigir imperfeições, realçar detalhes, criar efeitos especiais, entre outras possibilidades. A manipulação de pixels é uma técnica fundamental em áreas como processamento de imagem, design gráfico, edição de fotos e criação de arte digital. Com a ajuda de bibliotecas de processamento de imagem, é possível acessar e modificar os valores dos pixels em uma imagem, abrindo caminho para inúmeras possibilidades criativas e práticas.</p>
 </div>
 <div class="sect2">
 <h3 id="_1_1_exercicio_1_1_filtro_negativo_regions_cpp">1.1 Exercicio 1.1 - Filtro Negativo (regions.cpp)</h3>
-<div id="fig_regions" class="imageblock">
-<div class="content">
-<img src="Regions.png" alt="Regions">
+<div class="paragraph">
+<p>O filtro negativo é um mecanismo que busca eliminar conteúdos indesejados, inapropriados ou prejudiciais por meio da aplicação de técnicas de análise e restrição. Ele é amplamente utilizado em diversas áreas, como tecnologia da informação, mídias sociais e segurança, visando proteger os usuários e garantir a qualidade do conteúdo. No entanto, é necessário ter cautela para evitar restrições excessivas e preservar a liberdade de expressão.</p>
 </div>
-<div class="title">Figure 1. saída do programa regions.cpp</div>
+<div class="paragraph">
+<p>Com isso, crie um programa chamado <a href="#exa_regions">regions</a> com base no código de exemplo "pixels.cpp". O programa deve pedir ao usuário as coordenadas de dois pontos, P1 e P2, que estão dentro dos limites do tamanho da imagem. Em seguida, ele deve exibir a imagem fornecida, mas com a região definida pelo retângulo formado pelos pontos P1 e P2 exibindo o negativo da imagem nessa área específica. Esse efeito produzirá uma região destacada com cores invertidas em relação ao restante da imagem.</p>
 </div>
 <div class="sect3">
-<h4 id="_1_1_1_código_e_resultado">1.1.1. Código e Resultado.</h4>
-<div class="paragraph">
-<p>Incluindo codigo do exemplo <a href="#exa_regions">regions</a>.</p>
-</div>
+<h4 id="_1_1_1_código_e_resultado">1.1.1 Código e Resultado.</h4>
 <div id="exa_regions" class="listingblock">
 <div class="title">regions.cpp</div>
 <div class="content">
@@ -673,11 +668,89 @@ pre.rouge .gs {
 <span class="p">}</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Abaixo temos a imagem original <a href="#fig_biel">biel</a> e em seguida a imagem resultante do código <a href="#fig_regions">regions</a>. As Coordenadas escolhidas foram P1 (90, 180) e P2 (90, 180).</p>
+</div>
+<div id="fig_biel" class="imageblock">
+<div class="content">
+<img src="biel.png" alt="biel">
+</div>
+<div class="title">Figure 1. Imagem original</div>
+</div>
+<div id="fig_regions" class="imageblock">
+<div class="content">
+<img src="Regions.png" alt="Regions">
+</div>
+<div class="title">Figure 2. saída do programa regions.cpp</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_1_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</h3>
+<h3 id="_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</h3>
+<div class="paragraph">
+<p>Desenvolva um programa chamado <a href="#trocaregioes.cpp">[trocaregioes.cpp]</a> com base no código de exemplo "pixels.cpp". O programa deve trocar os quadrantes diagonais na imagem. Para realizar essa troca, utilize a classe "Mat" e seus construtores para criar as regiões que serão intercambiadas. Ao executar o programa, a imagem exibida terá os quadrantes diagonais trocados.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_1_2_código_e_resultado">1.1.2 Código e Resultado.</h4>
+<div id="exa_trocaregioes" class="listingblock">
+<div class="title">trocaregioes.cpp</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="c1">// Renato Emanuel Medeiros de Lira</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+ 	
+  <span class="n">Mat</span> <span class="n">image</span><span class="p">;</span>
+ 	<span class="n">image</span><span class="o">=</span><span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Imagem não foi carregada"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  
+  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span>
+  
+  <span class="n">Mat</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span>
+  
+  <span class="n">Rect</span> <span class="nf">region1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">Rect</span> <span class="nf">region2</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">Rect</span> <span class="nf">region3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">Rect</span> <span class="nf">region4</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+  
+  <span class="n">Mat</span> <span class="n">roi1</span> <span class="o">=</span> <span class="n">temp</span><span class="p">(</span><span class="n">region1</span><span class="p">);</span>
+  <span class="n">Mat</span> <span class="n">roi2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">(</span><span class="n">region2</span><span class="p">);</span>
+  <span class="n">Mat</span> <span class="n">roi3</span> <span class="o">=</span> <span class="n">temp</span><span class="p">(</span><span class="n">region3</span><span class="p">);</span>
+  <span class="n">Mat</span> <span class="n">roi4</span> <span class="o">=</span> <span class="n">temp</span><span class="p">(</span><span class="n">region4</span><span class="p">);</span>
+
+  <span class="n">roi3</span><span class="p">.</span><span class="n">copyTo</span><span class="p">(</span><span class="n">image</span><span class="p">(</span><span class="n">region2</span><span class="p">));</span>  <span class="c1">// R3 -&gt; R2</span>
+  <span class="n">roi4</span><span class="p">.</span><span class="n">copyTo</span><span class="p">(</span><span class="n">image</span><span class="p">(</span><span class="n">region1</span><span class="p">));</span>  <span class="c1">// R4 -&gt; R1</span>
+  <span class="n">roi1</span><span class="p">.</span><span class="n">copyTo</span><span class="p">(</span><span class="n">image</span><span class="p">(</span><span class="n">region4</span><span class="p">));</span>  <span class="c1">// R1 -&gt; R4</span>
+  <span class="n">roi2</span><span class="p">.</span><span class="n">copyTo</span><span class="p">(</span><span class="n">image</span><span class="p">(</span><span class="n">region3</span><span class="p">));</span>  <span class="c1">// R2 -&gt; R3</span>
+  
+  <span class="n">imshow</span><span class="p">(</span><span class="s">"janela"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+  <span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  
+  <span class="n">imwrite</span><span class="p">(</span><span class="s">"trocaregioes.png"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Abaixo temos a imagem original <a href="#fig_biel">biel</a> e em seguida a imagem resultante do código <a href="#fig_trocaregioes">trocaregioes</a>, na qual os quadrantes foram trocados de lugar.</p>
+</div>
+<div id="fig_trocaregioes" class="imageblock">
+<div class="content">
+<img src="trocaregioes.png" alt="trocaregioes">
+</div>
+<div class="title">Figure 3. saída do programa trocaregioes.cpp</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -768,7 +841,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-18 00:34:55 -0300
+Last updated 2023-07-18 01:08:55 -0300
 </div>
 </div>
 </body>
