@@ -445,7 +445,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_1_manipulando_pixels_em_uma_imagem">1. Manipulando pixels em uma imagem</a>
 <ul class="sectlevel2">
-<li><a href="#_1_1_exercicio_1_filtro_negativo_regions_cpp">1.1. Exercicio 1 -  Filtro Negativo (regions.cpp)</a></li>
+<li><a href="#_1_1_exercicio_1_1_filtro_negativo_regions_cpp">1.1 Exercicio 1.1 - Filtro Negativo (regions.cpp)</a></li>
+<li><a href="#_1_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</a></li>
 </ul>
 </li>
 <li><a href="#_2_serialização_de_dados_em_ponto_flutuante_via_filestorage">2. Serialização de dados em ponto flutuante via FileStorage</a>
@@ -490,15 +491,79 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_1_manipulando_pixels_em_uma_imagem">1. Manipulando pixels em uma imagem</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Manipular pixels em uma imagem envolve a capacidade de alterar individualmente os elementos de cor que compõem a imagem. Cada pixel contém informações sobre sua cor específica, como vermelho, verde e azul (RGB), além de valores de transparência em alguns casos. Ao manipular os pixels, é possível realizar uma variedade de transformações na imagem, como ajustar o brilho, a saturação, o contraste, aplicar filtros, redimensionar ou recortar. Essas manipulações permitem corrigir imperfeições, realçar detalhes, criar efeitos especiais, entre outras possibilidades. A manipulação de pixels é uma técnica fundamental em áreas como processamento de imagem, design gráfico, edição de fotos e criação de arte digital. Com a ajuda de bibliotecas de processamento de imagem, é possível acessar e modificar os valores dos pixels em uma imagem, abrindo caminho para inúmeras possibilidades criativas e práticas.</p>
+<div class="literalblock">
+<div class="content">
+<pre>Manipular pixels em uma imagem envolve a capacidade de alterar individualmente os elementos de cor que compõem a imagem. Cada pixel contém informações sobre sua cor específica, como vermelho, verde e azul (RGB), além de valores de transparência em alguns casos. Ao manipular os pixels, é possível realizar uma variedade de transformações na imagem, como ajustar o brilho, a saturação, o contraste, aplicar filtros, redimensionar ou recortar. Essas manipulações permitem corrigir imperfeições, realçar detalhes, criar efeitos especiais, entre outras possibilidades. A manipulação de pixels é uma técnica fundamental em áreas como processamento de imagem, design gráfico, edição de fotos e criação de arte digital. Com a ajuda de bibliotecas de processamento de imagem, é possível acessar e modificar os valores dos pixels em uma imagem, abrindo caminho para inúmeras possibilidades criativas e práticas.</pre>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_1_1_exercicio_1_filtro_negativo_regions_cpp">1.1. Exercicio 1 -  Filtro Negativo (regions.cpp)</h3>
+<h3 id="_1_1_exercicio_1_1_filtro_negativo_regions_cpp">1.1 Exercicio 1.1 - Filtro Negativo (regions.cpp)</h3>
+<div id="fig_regions" class="imageblock">
+<div class="content">
+<img src="Regions.png" alt="Regions">
+</div>
+<div class="title">Figure 1. saída do programa regions.cpp</div>
+</div>
 <div class="sect3">
 <h4 id="_1_1_1_código_e_resultado">1.1.1. Código e Resultado.</h4>
-
+<div class="paragraph">
+<p>Incluindo codigo do exemplo <a href="#exa_regions">regions</a>.</p>
 </div>
+<div id="exa_regions" class="listingblock">
+<div class="title">regions.cpp</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp">#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+int main(int, char** argv) {
+
+	Mat image;
+ 	image=imread(argv[1], IMREAD_GRAYSCALE);
+
+    if (image.empty()) {
+        cout &lt;&lt; "Imagem não foi carregada" &lt;&lt; endl;
+        return 1;
+    }
+
+    Point p1, p2;
+
+	cout &lt;&lt; "Tamanho da imagem: " &lt;&lt; image.rows &lt;&lt; "x" &lt;&lt; image.cols &lt;&lt; endl;
+	
+    cout &lt;&lt; "Digite as coordenadas do ponto P1:" &lt;&lt; endl;
+    cin &gt;&gt; p1.y &gt;&gt; p1.x;
+
+	do{
+    cout &lt;&lt; "Digite as coordenadas do ponto P2:" &lt;&lt; endl;
+    cin &gt;&gt; p2.y &gt;&gt; p2.x;
+	if (p1.y &gt;= p2.y || p1.x &gt;= p2.x){
+		cout &lt;&lt; "Ambas coordenadas do ponto P2 tem que ser maiores que as coordenadas do ponto P1, escreva novamente!"&lt;&lt;endl;
+	}
+	}while(p1.y &gt;= p2.y || p1.x &gt;= p2.x);
+
+    for (int i = p1.x; i &lt; p2.x; i++) {
+        for (int j = p1.y; j &lt; p2.y; j++) {
+            image.at&lt;uchar&gt;(i, j) = 255 - image.at&lt;uchar&gt;(i, j);
+        }
+    }
+
+    namedWindow("janela", WINDOW_AUTOSIZE);
+    imshow("janela", image);
+    waitKey(0);
+
+    imwrite("Regions.png", image);
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_1_2_exercicio_1_2_troca_regiões_trocaregioes_cpp">1.1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)</h3>
+
 </div>
 </div>
 </div>
@@ -589,7 +654,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-18 00:12:19 -0300
+Last updated 2023-07-18 00:34:55 -0300
 </div>
 </div>
 </body>
