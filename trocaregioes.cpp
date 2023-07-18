@@ -5,13 +5,15 @@
 using namespace cv;
 using namespace std;
 
-int main() {
-  Mat image = imread("biel.png", IMREAD_GRAYSCALE);
-  
-  if (image.empty()) {
-    cout << "Não foi possível abrir a imagem biel.png" << endl;
-    return -1;
-  }
+int main(int, char** argv) {
+ 	
+  Mat image;
+ 	image=imread(argv[1], IMREAD_GRAYSCALE);
+
+    if (image.empty()) {
+        cout << "Imagem não foi carregada" << endl;
+        return 1;
+    }
   
   int x = image.rows;
   int y = image.cols;
@@ -36,5 +38,7 @@ int main() {
   imshow("janela", image);
   waitKey(0);
   
+  imwrite("trocaregioes.png", image);
+
   return 0;
 }

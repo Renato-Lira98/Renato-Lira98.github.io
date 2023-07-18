@@ -4,123 +4,42 @@
 using namespace cv;
 using namespace std;
 
-int main() {
-	cout << "INICIANDO..." << endl;
+int main(int, char** argv) {
 
 	Mat image;
-	int P1X, P1Y, P2X, P2Y;
-	char diretorio[1000];
+ 	image=imread(argv[1], IMREAD_GRAYSCALE);
 
-	cout << "Digite a loc da imagem: " << endl;
-	cout << "EX.: C:\\User\\Desktop\\<nomedaimagem>.png" << endl;
-	cin >> diretorio;
+    if (image.empty()) {
+        cout << "Imagem não foi carregada" << endl;
+        return 1;
+    }
 
-	auto imageO = imread(diretorio);
-	image = imread(diretorio, IMREAD_GRAYSCALE);
+    Point p1, p2;
 
-	int rows = image.rows;
-	int cols = image.cols;
+	cout << "Tamanho da imagem: " << image.rows << "x" << image.cols << endl;
+	
+    cout << "Digite as coordenadas do ponto P1:" << endl;
+    cin >> p1.y >> p1.x;
 
-	cout << "Digite o ponto P1 da imagem" << endl;
-	cout << "Entre Linha 0 e" << " " << (rows - 1) << " " << "e Coluna 0 e" << " " << (cols - 1) << endl;
-	cin >> P1X >> P1Y;
-	cout << "(" << P1X << "," << P1Y << ")" << endl;
-	cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-
-	int confirmaP1;
-
-	do {
-		cin >> confirmaP1;
-		if (confirmaP1 == 0) {
-			cout << "Digite o ponto P1 da imagem" << endl;
-			cout << "Entre Linha 0 e" << " " << (rows - 1) << " " << "e Coluna 0 e" << " " << (cols - 1) << endl;
-			cin >> P1X >> P1Y;
-			cout << "(" << P1X << "," << P1Y << ")" << endl;
-
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP1;
-		}
-
-		if (confirmaP1 == 1 && (P1X < 0 || P1X > rows)) {
-			cout << "Valor de X do ponto P1 localiza-se fora da imagem, digite novamente P1X: " << endl;
-			cin >> P1X;
-
-			cout << "(" << P1X << "," << P1Y << ")" << endl;
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP1;
-		}
-
-		if (confirmaP1 == 1 && (P1Y< 0 || P1Y > cols)) {
-			cout << "Valor de Y do ponto P1 localiza-se fora da imagem, digite novamente P1Y: " << endl;
-			cin >> P1Y;
-
-			cout << "(" << P1X << "," << P1Y << ")" << endl;
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP1;
-		}
-
-	} while (confirmaP1 == 0);
-
-
-	cout << "Digite o ponto P2 da imagem" << endl;
-	cout << "Entre Linha 0 e" << " " << (rows - 1) << " " << "e Coluna 0 e" << " " << (cols - 1) << endl;
-	cin >> P2X >> P2Y;
-	cout << "(" << P2X << "," << P2Y << ")" << endl;
-	cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-
-	int confirmaP2;
-	do {
-		cin >> confirmaP2;
-		if (confirmaP2 == 0) {
-			cout << "Digite o ponto P2 da imagem" << endl;
-			cout << "Entre Linha 0 e" << " " << (rows - 1) << " " << "e Coluna 0 e" << " " << (cols - 1) << endl;
-			cin >> P2X >> P2Y;
-			cout << "(" << P2X << "," << P2Y << ")" << endl;
-
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP2;
-		}
-
-		if (confirmaP2 == 1 && (P2X < 0 || P2X > rows || P2X < P1X)) {
-			cout << "Valor de X do ponto P2 localiza-se fora da imagem ou eh menor que P1X, digite novamente P2X: " << endl;
-			cin >> P2X;
-
-			cout << "(" << P2X << "," << P2Y << ")" << endl;
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP2;
-		}
-
-		if (confirmaP2 == 1 && (P2Y< 0 || P2Y > cols || P2Y < P1Y)) {
-			cout << "Valor de Y do ponto P2 localiza-se fora da imagem ou eh menor que P1Y, digite novamente P2Y: " << endl;
-			cin >> P2Y;
-
-			cout << "(" << P2X << "," << P2Y << ")" << endl;
-			cout << "Digite 0 para cancelar e 1 para confirmar" << endl;
-			cin >> confirmaP2;
-		}
-	} while (confirmaP2 == 0);
-
-
-	if (!image.data) {
-		cout << "Imagem nao encontrada!" << endl;
+	do{
+    cout << "Digite as coordenadas do ponto P2:" << endl;
+    cin >> p2.y >> p2.x;
+	if (p1.y >= p2.y || p1.x >= p2.x){
+		cout << "Ambas coordenadas do ponto P2 tem que ser maiores que as coordenadas do ponto P1, escreva novamente!"<<endl;
 	}
+	}while(p1.y >= p2.y || p1.x >= p2.x);
 
-	for (int i = P1X; i < P2X; i++) {
-		for (int j = P1Y; j < P2Y; j++) {
+    for (int i = p1.x; i < p2.x; i++) {
+        for (int j = p1.y; j < p2.y; j++) {
+            image.at<uchar>(i, j) = 255 - image.at<uchar>(i, j);
+        }
+    }
 
-			image.at<uchar>(i, j) = 255 - image.at<uchar>(i, j);
+    namedWindow("janela", WINDOW_AUTOSIZE);
+    imshow("janela", image);
+    waitKey(0);
 
-		}
-	}
+    imwrite("Regions.png", image);
 
-	imwrite("janelaNegativo.png", image);
-	namedWindow("janelaOriginal", WINDOW_AUTOSIZE);
-	imshow("janelaOriginal", imageO);
-	namedWindow("janelaNegativo", WINDOW_AUTOSIZE);
-	imshow("janelaNegativo", image);
-
-	waitKey();
-
-	return 0;
-
+    return 0;
 }
