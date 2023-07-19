@@ -34,7 +34,7 @@ image::Regions.png[title="Saída do programa regions.cpp"]
 
 === 1.2 Exercicio 1.2 - Troca Regiões (trocaregioes.cpp)
 
-Desenvolva um programa chamado <<trocaregioes.cpp>> com base no código de exemplo "pixels.cpp". O programa deve trocar os quadrantes diagonais na imagem. Para realizar essa troca, utilize a classe "Mat" e seus construtores para criar as regiões que serão intercambiadas. Ao executar o programa, a imagem exibida terá os quadrantes diagonais trocados.
+Desenvolva um programa chamado <<exa_trocaregioes.cpp>> com base no código de exemplo "pixels.cpp". O programa deve trocar os quadrantes diagonais na imagem. Para realizar essa troca, utilize a classe "Mat" e seus construtores para criar as regiões que serão intercambiadas. Ao executar o programa, a imagem exibida terá os quadrantes diagonais trocados.
 
 ==== 1.1.2 Código e Resultado.
 
