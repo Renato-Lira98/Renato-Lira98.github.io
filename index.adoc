@@ -51,11 +51,11 @@ Abaixo temos a imagem original <<fig_biel>> e em seguida a imagem resultante do 
 .Saída do programa trocaregioes.cpp
 image::trocaregioes.png[title="Saída do programa trocaregioes.cpp"]
 
-== 2. Serialização de dados em ponto flutuante via FileStorage
+== 2 Serialização de dados em ponto flutuante via FileStorage
 
 A serialização de dados em ponto flutuante usando o FileStorage envolve a gravação e leitura de valores numéricos em formato de ponto flutuante em um arquivo estruturado. Ao utilizar a classe FileStorage, é possível gravar os dados em um formato como YAML ou XML, permitindo a preservação da precisão fracionária. A leitura dos dados serializados também é facilitada pela classe FileStorage, tornando possível acessar e utilizar os valores gravados posteriormente. Esse processo é especialmente útil em cenários onde é necessário armazenar e recuperar informações numéricas precisas, como em aplicações científicas, processamento de imagens e simulações.
 
-=== 2.1. Exercicio 2 - filestorage.cpp
+=== 2.1 Exercicio 2 - filestorage.cpp
 
 Utilizando o programa "filestorage.cpp" como base, crie um novo programa que gere uma imagem de 256x256 pixels contendo uma senóide horizontal com 4 períodos e amplitude de 127, semelhante à figura apresentada na <<filestorage_exemplo>>. Grave a imagem em formato PNG e em formato YML. Em seguida, compare os arquivos gerados, extraindo uma linha de cada imagem gravada e calculando a diferença entre elas. Trace um gráfico dessa diferença ao longo da linha correspondente nas imagens. Observe os resultados e faça as observações relevantes.
 
@@ -64,7 +64,7 @@ Utilizando o programa "filestorage.cpp" como base, crie um novo programa que ger
 image::senoide.png[title="Imagem de uma senóide horizontal com 8 periodos"]
 
 
-==== 2.1.1. Código e Resultado.
+==== 2.1.1 Código e Resultado.
 
 [[exa_filestorage, filestorage]]
 [source,cpp]
@@ -79,15 +79,15 @@ Abaixo temos a imagem resultante do código <<fig_filestorage>>, na qual é repr
 .Saída do programa filestorage.cpp
 image::senoide.png[title="Saída do programa filestorage.cpp"]
 
-== 3. Decomposição de imagens em planos de bits
+== 3 Decomposição de imagens em planos de bits
 
 A decomposição de imagens em planos de bits é um processo onde uma imagem é separada em camadas binárias, cada uma representando um plano de bits específico. Isso permite analisar e manipular individualmente cada componente da imagem, seja em escala de cinza ou em cores, como vermelho, verde e azul. Essa técnica é útil em diversas aplicações, como processamento de imagem, análise de padrões e compressão de dados, possibilitando identificar características específicas e realizar manipulações precisas na intensidade de cor de cada pixel.
 
-=== 3.1. Exercicio 3 -  esteg-encode.cpp
+=== 3.1 Exercicio 3 - esteg-encode.cpp
 
 Escreva um programa que seja capaz de recuperar uma imagem codificada resultante de esteganografia. No processo de recuperação, os bits menos significativos dos pixels da imagem fornecida devem ser utilizados para compor os bits mais significativos dos pixels da imagem recuperada. O programa deve receber como parâmetro de linha de comando o nome do arquivo da imagem resultante da esteganografia
 
-==== 3.1.1. Código e Resultado.
+==== 3.1.1 Código e Resultado.
 
 [[exa_esteg, esteg]]
 [source,cpp]
@@ -111,15 +111,15 @@ image::imagemPortadora.png[title="Saída do programa esteg.cpp, imagem Portadora
 image::imagemEscondida.png[title="Saída do programa esteg.cpp, imagem Escondida"]
 
 
-== 4. Preenchendo regiões
+== 4 Preenchendo regiões
 
 Uma tarefa comum em processamento de imagens e visão computacional é contar a quantidade de objetos em uma cena. Para isso, é necessário identificar os aglomerados de pixels associados a cada objeto. Geralmente, trabalha-se com imagens binárias, em que cada pixel tem o valor 0 para o fundo da imagem e 255 para os objetos. Cada aglomerado de pixels é considerado um objeto separado, e esse processo é amplamente utilizado para contagem de objetos em imagens.
 
-=== 4.1. Exercicio 4 - labeling.cpp
+=== 4.1 Exercicio 4 - labeling.cpp
 
 O programa "labeling.cpp" apresenta uma limitação quando há mais de 255 objetos na cena devido à utilização de pixels de 8 bits para rotular os objetos. Para solucionar esse problema, é necessário utilizar uma estrutura de dados com maior capacidade de armazenamento, como uma matriz de inteiros de 32 bits. Além disso, é possível aprimorar o algoritmo de contagem para identificar regiões com ou sem buracos internos, removendo os objetos que tocam as bordas da imagem e contando separadamente os buracos internos de cada objeto identificado.
 
-==== 4.1.1. Código e Resultado.
+==== 4.1.1 Código e Resultado.
 
 [[exa_labeling, labeling]]
 [source,cpp]
@@ -130,38 +130,87 @@ include::labeling.cpp[]
 
 O código <<exa_labeling>> está contando certo o número de bolhas com buracos, mas parece que houve um problema na lógica utilizada para identificar as bolhas sem buracos. A abordagem utilizada não está correta e acabou removendo todas as bolhas sem buracos da imagem. Na imagem <<fig_labeling>>, podemos ver melhor o que aconteceu
 
-== 5. Manipulação de histogramas
+[[fig_labeling, labeling]]
+.Saída do programa labeling.cpp
+image::labeling.png[title="Saída do programa labelingestorage.cpp"]
 
 
-=== 5.1. Exercicio 5 -  histogram.cpp
+== 5 Manipulação de histogramas
 
 
-==== 5.1.1. Código e Resultado.
+=== 5.1 Exercicio 5 - histogram.cpp
 
 
-== 6. Filtragem no domínio espacial I
+==== 5.1.1 Código e Resultado.
 
 
-=== 6.1. Exercicio 6 - filtroespacial.cpp 
+== 6 Filtragem no domínio espacial
+
+Um filtro espacial é uma técnica utilizada no processamento de imagens para modificar a aparência de uma imagem por meio da aplicação de uma máscara ou kernel sobre seus pixels. Essa máscara é usada para realizar operações de convolução, que combinam os valores dos pixels vizinhos para calcular um novo valor para cada pixel da imagem, permitindo realces, suavização, detecção de bordas e outras transformações visuais.
+
+=== 6.1 Exercicio 6 - filtroespacial.cpp 
+
+Utilizando o programa exemplo filtroespacial.cpp como referência, implemente um programa laplgauss.cpp. O programa deverá acrescentar mais uma funcionalidade ao exemplo fornecido, permitindo que seja calculado o laplaciano do gaussiano das imagens capturadas. Compare o resultado desse filtro com a simples aplicação do filtro laplaciano.
+
+==== 6.1.1 Código e Resultado.
+
+[[exa_filtroespacial, filtroespacial]]
+[source,cpp]
+.filtroespacial.cpp
+----
+include::filtroespacial.cpp[]
+----
+
+No código <<exa_filtroespacial>>, calculamos o filtro espacial da imagem passada como parametro, além de calcular o laplaciano do gaussiano dessa imagem. O resultado da aplicação do filtro espacial é observado na imagem <<fig_filtroespacial>>. Já a aplicação do laplaciano do gaussiano da imagem, pode ser visto na imagem <<fig_laplacian_of_gaussian>>
+
+[[fig_filtroespacial, filtroespacial]]
+.Saída do programa filtroespacial.cpp
+image::filtroespacial.png[title="Saída do programa filtroespacial.cpp"]
+
+[[fig_laplacian_of_gaussian, laplacian_of_gaussian]]
+.Saída do programa filtroespacial.cpp
+image::laplacian_of_gaussian.png[title="Saída do programa filtroespacial.cpp"]
 
 
-==== 6.1.1. Código e Resultado.
+== 7 A Tranformada Discreta de Fourier
 
+A transformada discreta de Fourier (DFT) é uma técnica matemática amplamente utilizada para analisar e processar sinais no domínio da frequência. Ela converte um sinal discreto no domínio do tempo em suas componentes de frequência correspondentes, permitindo a identificação e a manipulação das diferentes frequências presentes no sinal. A DFT divide o sinal em uma série de componentes senoidais complexas, cada uma representando uma frequência específica. Essas componentes são então combinadas para reconstruir o sinal original. A DFT possui aplicações em várias áreas, incluindo processamento de imagens, compressão de dados, análise espectral e filtragem de sinais, proporcionando uma ferramenta poderosa para a análise e a modificação de sinais e imagens no domínio da frequência.
 
-== 7. Filtragem no domínio espacial II
+=== 7.1. Exercicio 7 - dftimage.cpp
 
-
-=== 7.1. Exercicio 7 -  addweighted.cpp
-
+Utilizando os programa exemplo dftimage.cpp, calcule e apresente o espectro de magnitude da imagem <<fig_filestorage_exemplo>>.
 
 ==== 7.1.1. Código e Resultado.
 
+[[exa_dftimage, dftimage]]
+[source,cpp]
+.dftimage.cpp
+----
+include::dftimage.cpp[]
+----
 
-== 8. A Tranformada Discreta de Fourier
+Nesse código <<exa_dftimage>>, não foi possivel obter o resultado pedido no exercicio, isso se pode dar devido a algum erro de lógica e/ou do uso de alguma função da biblioteca opencv.
 
+== 8. Detecção de bordas com o algoritmo de Canny
 
-=== 8.1. Exercicio 8 - dftimage.cpp
+O algoritmo de Canny é amplamente utilizado para detecção de bordas em imagens. Ele consiste em vários passos para identificar e caracterizar as bordas de forma precisa e robusta. Primeiramente, é aplicado um filtro gaussiano para reduzir o ruído na imagem. Em seguida, são calculados os gradientes de intensidade, fornecendo informações sobre as mudanças de intensidade em diferentes direções. Esses gradientes são então suprimidos para obter bordas mais finas e precisas. Por fim, é realizada uma técnica chamada de limiarização dupla, na qual são definidos limiares mínimos e máximos para determinar quais bordas são consideradas relevantes. As bordas resultantes são rastreadas e conectadas para formar linhas contínuas. O algoritmo de Canny é conhecido por sua capacidade de detectar bordas com baixo ruído e alta precisão, tornando-o uma escolha popular em aplicações de visão computacional e processamento de imagens.
+
+=== 8.1. Exercicio 8 - cannypoints.cpp
+
+Utilizando os programas exemplos/canny.cpp e exemplos/pontilhismo.cpp como referência, implemente um programa cannypoints.cpp. A idéia é usar as bordas produzidas pelo algoritmo de Canny para melhorar a qualidade da imagem pontilhista gerada. A forma como a informação de borda será usada é livre. Entretanto, são apresentadas algumas sugestões de técnicas que poderiam ser utilizadas:
 
 
 ==== 8.1.1. Código e Resultado.
 
+[[exa_cannypoints, cannypoints]]
+[source,cpp]
+.cannypoints.cpp
+----
+include::cannypoints.cpp[]
+----
+
+O código <<exa_cannypoints>> apresenta uma melhoria na técnica de pontilhismo e, usando em conjunto com o algoritimo de canny, foi possivel desenhar pontos na borda do rosto presente na imagem <<fig_biel>>. Na imagem <<fig_pontos_canny>>
+
+[[fig_pontos_canny, pontos_canny]]
+.Saída do programa cannypoints.cpp
+image::pontos_canny.jpg[title="Saída do programa cannypoints.cpp"]
