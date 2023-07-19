@@ -61,12 +61,12 @@ Utilizando o programa "filestorage.cpp" como base, crie um novo programa que ger
 
 [[fig_filestorage_exemplo, filestorage]]
 .Exemplo 
-image::senoide.png[title="Imagem de senóide"]
+image::senoide.png[title="Imagem de uma senóide horizontal com 8 periodos"]
 
 
 ==== 2.1.1. Código e Resultado.
 
-[exa_trocaregioes, trocaregioes]]
+[[exa_filestorage, filestorage]]
 [source,cpp]
 .filestorage.cpp
 ----
@@ -89,7 +89,7 @@ Escreva um programa que seja capaz de recuperar uma imagem codificada resultante
 
 ==== 3.1.1. Código e Resultado.
 
-[exa_esteg, esteg]]
+[[exa_esteg, esteg]]
 [source,cpp]
 .esteg.cpp
 ----
@@ -117,9 +117,18 @@ Uma tarefa comum em processamento de imagens e visão computacional é contar a 
 
 === 4.1. Exercicio 4 - labeling.cpp
 
+O programa "labeling.cpp" apresenta uma limitação quando há mais de 255 objetos na cena devido à utilização de pixels de 8 bits para rotular os objetos. Para solucionar esse problema, é necessário utilizar uma estrutura de dados com maior capacidade de armazenamento, como uma matriz de inteiros de 32 bits. Além disso, é possível aprimorar o algoritmo de contagem para identificar regiões com ou sem buracos internos, removendo os objetos que tocam as bordas da imagem e contando separadamente os buracos internos de cada objeto identificado.
 
 ==== 4.1.1. Código e Resultado.
 
+[[exa_labeling, labeling]]
+[source,cpp]
+.labeling.cpp
+----
+include::labeling.cpp[]
+----
+
+O código <<exa_labeling>> está contando certo o número de bolhas com buracos, mas parece que houve um problema na lógica utilizada para identificar as bolhas sem buracos. A abordagem utilizada não está correta e acabou removendo todas as bolhas sem buracos da imagem. Na imagem <<fig_labeling>>, podemos ver melhor o que aconteceu
 
 == 5. Manipulação de histogramas
 

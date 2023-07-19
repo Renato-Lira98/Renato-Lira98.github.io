@@ -770,11 +770,11 @@ pre.rouge .gs {
 <div class="content">
 <img src="senoide.png" alt="senoide">
 </div>
-<div class="title">Figure 4. Imagem de senóide</div>
+<div class="title">Figure 4. Imagem de uma senóide horizontal com 8 periodos</div>
 </div>
 <div class="sect3">
 <h4 id="_2_1_1_código_e_resultado">2.1.1. Código e Resultado.</h4>
-<div class="listingblock">
+<div id="exa_filestorage" class="listingblock">
 <div class="title">filestorage.cpp</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
@@ -842,7 +842,7 @@ pre.rouge .gs {
 </div>
 <div class="sect3">
 <h4 id="_3_1_1_código_e_resultado">3.1.1. Código e Resultado.</h4>
-<div class="listingblock">
+<div id="exa_esteg" class="listingblock">
 <div class="title">esteg.cpp</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
@@ -903,7 +903,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>Esse programa recupera a imagem codificada a partir dos bits menos significativos dos pixels da imagem esteganografada fornecida. Os bits 6 e 7 dos canais de cor de cada pixel são zerados para compor os bits mais significativos da imagem recuperada. Abaixo temos a imagem Decodificada <a href="#fig_imagemDecodificada">imagemDecodificada</a>, a imagem escondida <a href="#fig_imagemEscondida">imagemEscondida</a> e a imagem portadora <a href="#fig_imagemPortadora">imagemPortadora</a>, todas sendo saída do código <a href="#exa_esteg">[exa_esteg]</a>.</p>
+<p>Esse programa recupera a imagem codificada a partir dos bits menos significativos dos pixels da imagem esteganografada fornecida. Os bits 6 e 7 dos canais de cor de cada pixel são zerados para compor os bits mais significativos da imagem recuperada. Abaixo temos a imagem Decodificada <a href="#fig_imagemDecodificada">imagemDecodificada</a>, a imagem escondida <a href="#fig_imagemEscondida">imagemEscondida</a> e a imagem portadora <a href="#fig_imagemPortadora">imagemPortadora</a>, todas sendo saída do código <a href="#exa_esteg">esteg</a>.</p>
 </div>
 <div id="fig_imagemDecodificada" class="imageblock">
 <div class="content">
@@ -935,9 +935,88 @@ pre.rouge .gs {
 </div>
 <div class="sect2">
 <h3 id="_4_1_exercicio_4_labeling_cpp">4.1. Exercicio 4 - labeling.cpp</h3>
+<div class="paragraph">
+<p>O programa "labeling.cpp" apresenta uma limitação quando há mais de 255 objetos na cena devido à utilização de pixels de 8 bits para rotular os objetos. Para solucionar esse problema, é necessário utilizar uma estrutura de dados com maior capacidade de armazenamento, como uma matriz de inteiros de 32 bits. Além disso, é possível aprimorar o algoritmo de contagem para identificar regiões com ou sem buracos internos, removendo os objetos que tocam as bordas da imagem e contando separadamente os buracos internos de cada objeto identificado.</p>
+</div>
 <div class="sect3">
 <h4 id="_4_1_1_código_e_resultado">4.1.1. Código e Resultado.</h4>
+<div id="exa_labeling" class="listingblock">
+<div class="title">labeling.cpp</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
 
+<span class="kt">void</span> <span class="nf">removeBordas</span><span class="p">(</span><span class="n">Mat</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span>
+
+    <span class="c1">// Remover objetos das bordas</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">255</span><span class="p">);</span>
+        <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="mi">255</span><span class="p">);</span>
+        <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">contarObjetos</span><span class="p">(</span><span class="n">Mat</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">nObjects</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">nBuracos</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">cols</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">rows</span><span class="p">;</span>
+
+    <span class="n">nObjects</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">nBuracos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Alterar o background</span>
+    <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">100</span><span class="p">);</span>
+
+    <span class="c1">// Contar objetos e buracos</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Contar buraco</span>
+                <span class="n">nBuracos</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">nBuracos</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">255</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Contar objeto</span>
+                <span class="n">nObjects</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">floodFill</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="mi">200</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Mat</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">image</span><span class="p">.</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Imagem nao carregou corretamente</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">removeBordas</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">nObjects</span><span class="p">,</span> <span class="n">nBuracos</span><span class="p">;</span>
+    <span class="n">contarObjetos</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">nObjects</span><span class="p">,</span> <span class="n">nBuracos</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"A figura tem "</span> <span class="o">&lt;&lt;</span> <span class="n">nObjects</span> <span class="o">&lt;&lt;</span> <span class="s">" bolhas</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"A figura tem "</span> <span class="o">&lt;&lt;</span> <span class="n">nBuracos</span> <span class="o">&lt;&lt;</span> <span class="s">" buracos</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+
+    <span class="n">imshow</span><span class="p">(</span><span class="s">"image"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+    <span class="n">imwrite</span><span class="p">(</span><span class="s">"labeling.png"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>
+    <span class="n">waitKey</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O código <a href="#exa_labeling">labeling</a> está contando certo o número de bolhas com buracos, mas parece que houve um problema na lógica utilizada para identificar as bolhas sem buracos. A abordagem utilizada não está correta e acabou removendo todas as bolhas sem buracos da imagem. Na imagem <a href="#fig_labeling">[fig_labeling]</a>, podemos ver melhor o que aconteceu</p>
+</div>
 </div>
 </div>
 </div>
@@ -993,7 +1072,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-18 19:41:18 -0300
+Last updated 2023-07-18 21:21:46 -0300
 </div>
 </div>
 </body>
